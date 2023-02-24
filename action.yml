@@ -28,14 +28,14 @@ runs:
     - name: Automated Version Bump
       id: version-bump
       run: |
-        if [[ ${{ fromJSON(inputs.app_version) }} ]]
-        then
+        if [[ "${{ fromJSON(inputs.app_version) }}" == "true" ]]; then
           pybump bump --file ${{ inputs.chart-path }}/Chart.yaml --level ${{ inputs.level }} --app-version
+        else
+          pybump bump --file ${{ inputs.chart-path }}/Chart.yaml --level ${{ inputs.level }}
         fi        
-        pybump bump --file ${{ inputs.chart-path }}/Chart.yaml --level ${{ inputs.level }}
       shell: bash        
     - name: Output Name
       id: chart-name
       run: |
-        echo "::set-output name=chart::$(basename ${{ inputs.chart-path }})"
+        echo "chart=$(basename ${{ inputs.chart-path }})" >> $GITHUB_OUTPUT
       shell: bash
