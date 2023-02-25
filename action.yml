@@ -6,7 +6,7 @@ branding:
 inputs:
   app_version:
     description: to also bump app-version
-    default: "true"
+    default: "false"
     required: false
   level:
     description: patch/minor/major
